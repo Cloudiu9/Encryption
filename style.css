@@ -1,0 +1,89 @@
+:root {
+  --bg: #071028;
+  --card: #0b1220;
+  --accent: #6ee7b7;
+  --muted: #94a3b8;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+  background: linear-gradient(180deg, #071028 0%, #0b1220 100%);
+  color: #e6eef6;
+}
+.container {
+  max-width: 980px;
+  margin: 28px auto;
+  padding: 18px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 14px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+textarea,
+input,
+select {
+  width: 100%;
+  margin-top: 6px;
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 8px;
+  border-radius: 6px;
+}
+button {
+  background: var(--accent);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #04201a;
+}
+.full {
+  grid-column: 1/-1;
+}
+.status {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 8px;
+  border-radius: 8px;
+}
+.log {
+  font-family: monospace;
+  white-space: pre-wrap;
+  max-height: 180px;
+  overflow: auto;
+}
+label {
+  margin: 12px 0px;
+}
+.checkbox {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: left;
+}
+#signCheckbox {
+  width: 15px;
+  margin-left: 10px;
+}
+.row {
+  display: flex;
+  gap: 10px;
+  margin: 6px;
+}
+#decryptedOutput {
+  height: 100%;
+}
+select option {
+  color: black;
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Aplicație Criptare / Decriptare</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Criptare / Decriptare</h1>
+        <div class="muted-small"></div>
+      </header>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Gestionare chei</h2>
+          <div class="row">
+            <button id="btnGenerateKey">Generează keypair</button>
+            <button id="btnExportPub">Export public</button>
+            <input id="importKeyFile" type="file" style="display: none" />
+            <button id="btnImportKey">Încarcă cheia privată (JWK)</button>
+          </div>
+
+          <label>Cheie publică (JWK)</label>
+          <textarea id="publicKeyArea" readonly></textarea>
+          <div id="keyStatus" class="status">Nicio cheie.</div>
+        </div>
+
+        <div class="card">
+          <h2>Criptare</h2>
+          <label>Parolă</label>
+          <input type="password" id="encryptPassword" />
+
+          <label>Metodă KDF</label>
+          <select id="kdfSelect">
+            <option value="pbkdf2">PBKDF2 + SHA-256</option>
+            <option value="lfsr">LFSR</option>
+          </select>
+
+          <label>Fișier text</label>
+          <input type="file" id="encryptFileInput" accept="text/plain" />
+          <label class="checkbox">
+            <input type="checkbox" id="signCheckbox" />
+            <p>Semnez fișierul</p>
+          </label>
+
+          <button id="btnEncrypt">Criptează și salvează .enc</button>
+          <div id="encryptMsg" class="muted-small"></div>
+        </div>
+
+        <div class="card full">
+          <h2>Decriptare</h2>
+          <label>Fișier .enc</label>
+          <input type="file" id="decryptFileInput" accept="application/json" />
+          <label>Parolă</label>
+          <input type="password" id="decryptPassword" />
+          <button id="btnDecrypt">Decriptează</button>
+          <textarea
+            id="decryptedOutput"
+            readonly
+            placeholder="Rezultatul decriptării apare aici"
+          ></textarea>
+          <div id="verificationResults" class="status">-</div>
+        </div>
+
+        <div class="card full">
+          <h2>Jurnal</h2>
+          <div id="logArea" class="log"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
