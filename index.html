@@ -12,22 +12,6 @@
         <h1>Criptare / Decriptare</h1>
         <div class="muted-small"></div>
       </header>
-
-      <div class="grid">
-        <div class="card">
-          <h2>Gestionare chei</h2>
-          <div class="row">
-            <button id="btnGenerateKey">Generează keypair</button>
-            <button id="btnExportPub">Export public</button>
-            <input id="importKeyFile" type="file" style="display: none" />
-            <button id="btnImportKey">Încarcă cheia privată (JWK)</button>
-          </div>
-
-          <label>Cheie publică (JWK)</label>
-          <textarea id="publicKeyArea" readonly></textarea>
-          <div id="keyStatus" class="status">Nicio cheie.</div>
-        </div>
-
         <div class="card">
           <h2>Criptare</h2>
           <label>Parolă</label>
@@ -41,10 +25,6 @@
 
           <label>Fișier text</label>
           <input type="file" id="encryptFileInput" accept="text/plain" />
-          <label class="checkbox">
-            <input type="checkbox" id="signCheckbox" />
-            <p>Semnez fișierul</p>
-          </label>
 
           <button id="btnEncrypt">Criptează și salvează .enc</button>
           <div id="encryptMsg" class="muted-small"></div>

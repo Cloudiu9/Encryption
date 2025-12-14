@@ -38,7 +38,7 @@ select {
   background: transparent;
   color: inherit;
   border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 8px;
+  padding: 5px;
   border-radius: 6px;
 }
 button {
@@ -86,4 +86,7 @@ label {
 }
 select option {
   color: black;
+}
+#btnDecrypt {
+  margin-top: 1.5rem;
 }
