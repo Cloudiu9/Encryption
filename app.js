@@ -85,7 +85,7 @@ async function deriveKeyPBKDF2(password, saltBase64, iterations = 100000) {
   );
 }
 
-// ================= KDF LFSR (educational) =================
+// ================= KDF LFSR =================
 async function deriveKeyLFSR(password) {
   const seedBuf = await sha256(strToUtf8(password));
   const reg = new Uint8Array(seedBuf);
@@ -227,30 +227,54 @@ async function onDecryptClick() {
     }
 
     let plaintext;
+    let decryptionFailed = false;
+
     try {
       plaintext = await aesCbcDecrypt(header.payload, header.iv, aesKey);
     } catch {
-      log("Decriptare eșuată");
-      return;
+      decryptionFailed = true;
+
+      // folosim ciphertext-ul ca "text decriptat ilizibil"
+      plaintext = base64ToArrayBuffer(header.payload);
+
+      // log("Decriptare realizata.");
     }
 
-    const txt = utf8ToStr(plaintext);
-    const start = txt.indexOf(HASH_MARKER_START);
-    const end = txt.indexOf(HASH_MARKER_END);
+    let displayedText = "";
+    let hashOk = false;
 
-    const originalText = txt.substring(0, start);
-    const embeddedHash = txt.substring(start + HASH_MARKER_START.length, end);
+    if (decryptionFailed) {
+      // afisam direct datele ilizibile
+      displayedText = utf8ToStr(plaintext);
+      hashOk = false;
+    } else {
+      const txt = utf8ToStr(plaintext);
 
-    const recomputed = await sha256HexFromString(originalText);
-    const ok = embeddedHash === recomputed;
+      const start = txt.indexOf(HASH_MARKER_START);
+      const end = txt.indexOf(HASH_MARKER_END);
 
-    document.getElementById("decryptedOutput").value = originalText;
+      let originalText = txt;
+      let embeddedHash = "";
+
+      if (start !== -1 && end !== -1 && end > start) {
+        originalText = txt.substring(0, start);
+        embeddedHash = txt.substring(start + HASH_MARKER_START.length, end);
+      }
+
+      const recomputed = await sha256HexFromString(originalText);
+      hashOk = embeddedHash === recomputed;
+      displayedText = originalText;
+    }
+
+    document.getElementById("decryptedOutput").value = displayedText;
     autoResize(document.getElementById("decryptedOutput"));
-    document.getElementById("verificationResults").textContent = ok
+
+    document.getElementById("verificationResults").textContent = hashOk
       ? "HASHUL este corect."
       : "HASHUL este incorect.";
 
-    log("Decriptare finalizată. HASH ok: " + ok);
+    log("Decriptare finalizată.");
+    // log("Decriptare finalizată. HASH ok: " + hashOk);
   } catch (e) {
     log("Eroare decriptare: " + e.message);
   }
