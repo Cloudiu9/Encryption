@@ -193,6 +193,10 @@ async function onEncryptClick() {
     }
 
     const hashHex = await sha256HexFromString(text);
+
+    // Download hash
+    downloadBlob("hash.txt", hashHex, "text/plain");
+
     const textWithHash = text + HASH_MARKER_START + hashHex + HASH_MARKER_END;
 
     const enc = await aesCbcEncrypt(strToUtf8(textWithHash), aesKey);
